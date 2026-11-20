@@ -47,3 +47,13 @@ jobs:
         shell: powershell
         run: |
           pwsh -File '.github/workflows/setup.ps1'
+
+      - name: Upload Windows x64 binaries
+        if: runner.os == 'Windows' && matrix.arch == 'x86_64'
+        uses: actions/upload-artifact@v4
+        with:
+          name: peazip-windows-x64
+          path: |
+            peazip-sources/dev/*.exe
+            peazip-sources/dev/*.dll
+          if-no-files-found: warn
